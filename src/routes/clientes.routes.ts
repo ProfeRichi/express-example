@@ -1,12 +1,12 @@
 import { Router, Request, Response } from "express";
 import { clientesService } from "../services/clientes.service";
 
-const router = Router();
+const clientesRoutes = Router();
 
 /**
  * GET /clientes
  */
-router.get("/clientes", async (_req: Request, res: Response) => {
+clientesRoutes.get("/clientes", async (_req: Request, res: Response) => {
 	const clientes = await clientesService.findAll();
 	res.json(clientes);
 });
@@ -14,7 +14,7 @@ router.get("/clientes", async (_req: Request, res: Response) => {
 /**
  * GET /clientes/:id
  */
-router.get("/clientes/:id", async (req: Request, res: Response) => {
+clientesRoutes.get("/clientes/:id", async (req: Request, res: Response) => {
 	const id = Number(req.params.id);
 
 	const cliente = await clientesService.findById(id);
@@ -29,7 +29,7 @@ router.get("/clientes/:id", async (req: Request, res: Response) => {
 /**
  * POST /clientes
  */
-router.post("/clientes", async (req: Request, res: Response) => {
+clientesRoutes.post("/clientes", async (req: Request, res: Response) => {
 	const { nombre, telefono, email, empresa } = req.body;
 
 	if (!nombre) {
@@ -49,7 +49,7 @@ router.post("/clientes", async (req: Request, res: Response) => {
 /**
  * PUT /clientes/:id
  */
-router.put("/clientes/:id", async (req: Request, res: Response) => {
+clientesRoutes.put("/clientes/:id", async (req: Request, res: Response) => {
 	const id = Number(req.params.id);
 	const { nombre, telefono, email, empresa } = req.body;
 
@@ -70,7 +70,7 @@ router.put("/clientes/:id", async (req: Request, res: Response) => {
 /**
  * DELETE /clientes/:id
  */
-router.delete("/clientes/:id", async (req: Request, res: Response) => {
+clientesRoutes.delete("/clientes/:id", async (req: Request, res: Response) => {
 	const id = Number(req.params.id);
 
 	const eliminado = await clientesService.remove(id);
@@ -82,4 +82,4 @@ router.delete("/clientes/:id", async (req: Request, res: Response) => {
 	res.status(204).send();
 });
 
-export default router;
+export default clientesRoutes;

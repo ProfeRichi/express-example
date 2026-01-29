@@ -3,13 +3,13 @@ import { pool } from '../db/postgres';
 import { validateUsuario } from '../middlewares/usuarios/validate.middleware';
 
 
-const router = Router();
+const usuariosRoutes = Router();
 
 /**
  * GET /api/usuarios
  * Listar usuarios
  */
-router.get('/', async (_req: Request, res: Response) => {
+usuariosRoutes.get('/', async (_req: Request, res: Response) => {
   try {
     const { rows } = await pool.query(
       'SELECT * FROM public.usuarios ORDER BY id ASC'
@@ -28,7 +28,7 @@ router.get('/', async (_req: Request, res: Response) => {
 /**
  * GET /api/usuarios/:id
  */
-router.get('/:id', async (req: Request, res: Response) => {
+usuariosRoutes.get('/:id', async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 
@@ -51,7 +51,7 @@ router.get('/:id', async (req: Request, res: Response) => {
 /**
  * POST /api/usuarios
  */
-router.post('/',validateUsuario, async (req: Request, res: Response) => {
+usuariosRoutes.post('/',validateUsuario, async (req: Request, res: Response) => {
   try {
     const { nombre, email, edad, activo } = req.body;
 
@@ -78,7 +78,7 @@ router.post('/',validateUsuario, async (req: Request, res: Response) => {
 /**
  * PUT /api/usuarios/:id
  */
-router.put('/:id',validateUsuario, async (req: Request, res: Response) => {
+usuariosRoutes.put('/:id',validateUsuario, async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const { nombre, email, edad, activo } = req.body;
@@ -114,7 +114,7 @@ router.put('/:id',validateUsuario, async (req: Request, res: Response) => {
 /**
  * DELETE /api/usuarios/:id
  */
-router.delete('/:id', async (req: Request, res: Response) => {
+usuariosRoutes.delete('/:id', async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 
@@ -134,4 +134,4 @@ router.delete('/:id', async (req: Request, res: Response) => {
   }
 });
 
-export default router;
+export default usuariosRoutes;
