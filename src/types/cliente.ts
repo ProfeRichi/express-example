@@ -13,3 +13,8 @@ export interface CreateClienteDTO {
   email?: string;
   empresa?: string;
 }
+
+export interface ClientesResponse {
+  total: number ;
+  data: Cliente[];
+}

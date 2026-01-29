@@ -1,12 +1,14 @@
 import { pool } from "../db/postgres";
-import { Cliente, CreateClienteDTO } from "../types/cliente";
+import { Cliente, ClientesResponse, CreateClienteDTO } from "../types/cliente";
 
 export const clientesService = {
-	async findAll(): Promise<Cliente[]> {
-		const { rows } = await pool.query(
-			"select * from clientes order by created_at desc",
-		);
-		return rows;
+	async findAll(): Promise<ClientesResponse> {
+		const result = await pool.query("SELECT * FROM clientes ORDER BY id");
+
+		return {
+			total: result.rows.length,
+			data: result.rows,
+		};
 	},
 
 	async findById(id: number): Promise<Cliente | null> {
