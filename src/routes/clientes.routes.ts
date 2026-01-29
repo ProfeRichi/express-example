@@ -6,15 +6,13 @@ const clientesRoutes = Router();
 /**
  * GET /clientes
  */
-clientesRoutes.get("/clientes", async (_req: Request, res: Response) => {
+clientesRoutes.get("/", async (_req: Request, res: Response) => {
 	const clientes = await clientesService.findAll();
 	res.json(clientes);
 });
 
-/**
- * GET /clientes/:id
- */
-clientesRoutes.get("/clientes/:id", async (req: Request, res: Response) => {
+
+clientesRoutes.get("/:id", async (req: Request, res: Response) => {
 	const id = Number(req.params.id);
 
 	const cliente = await clientesService.findById(id);
@@ -26,10 +24,8 @@ clientesRoutes.get("/clientes/:id", async (req: Request, res: Response) => {
 	res.json(cliente);
 });
 
-/**
- * POST /clientes
- */
-clientesRoutes.post("/clientes", async (req: Request, res: Response) => {
+
+clientesRoutes.post("/", async (req: Request, res: Response) => {
 	const { nombre, telefono, email, empresa } = req.body;
 
 	if (!nombre) {
@@ -46,10 +42,8 @@ clientesRoutes.post("/clientes", async (req: Request, res: Response) => {
 	res.status(201).json(nuevoCliente);
 });
 
-/**
- * PUT /clientes/:id
- */
-clientesRoutes.put("/clientes/:id", async (req: Request, res: Response) => {
+
+clientesRoutes.put("/:id", async (req: Request, res: Response) => {
 	const id = Number(req.params.id);
 	const { nombre, telefono, email, empresa } = req.body;
 
@@ -67,10 +61,8 @@ clientesRoutes.put("/clientes/:id", async (req: Request, res: Response) => {
 	res.json(clienteActualizado);
 });
 
-/**
- * DELETE /clientes/:id
- */
-clientesRoutes.delete("/clientes/:id", async (req: Request, res: Response) => {
+
+clientesRoutes.delete("/:id", async (req: Request, res: Response) => {
 	const id = Number(req.params.id);
 
 	const eliminado = await clientesService.remove(id);
